@@ -1,0 +1,33 @@
+{% extends 'Booking/main.html' %}
+{% block content %}
+
+
+<div class="header-bar">
+    <div>
+        <h1>Open</h1>
+        
+    </div>
+
+
+    <div >
+        
+        <a   href="{% url 'resas' %}">View my bookings </a>
+        
+    </div>
+
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}">{{request.user|title}}, Logout</a> {% else %}
+    <a href="{% url 'login' %}">Login</a> {% endif %}
+
+</div>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="button" type="submit" value="Open the locker">
+</form>
+
+
+
+{% endblock content %}

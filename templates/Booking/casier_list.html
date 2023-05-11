@@ -1,0 +1,45 @@
+{% extends 'Booking/main.html' %}
+{% block content %}
+
+
+<div class="header-bar">
+    <div>
+       
+     
+    </div>
+
+
+    <a href="{% url 'resa-create' %}">&#8592; Back</a>
+    <h1>Step 2 / 3, Select your Casier {{casiers.placard}}</h1>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}"> {{request.user|title}}, Logout</a> {% else %}
+    <a href="{% url 'login' %}">{{request.user|title}}, Login</a> {% endif %}
+
+</div>
+
+    {% for casier in casiers %}
+    <div class="resa-wrapper" data-position="{{casier.pk}}">
+        <div class="resa-title">
+            <div class="resa-complete-icon"></div>
+            <i><a href="{% url 'resa-finish' casier.id %}">
+            {{casier.CasObj}} dans le casier {{casier.CasNum}}, Placard {{casier.placard.PlaNom}}
+            </a></i> 
+           
+        </div>
+        
+        <div >
+
+        </div>
+
+    </div>
+
+    {% empty %}
+    <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>No Casier are created. Please contact support for Help</h3>
+        
+    </div>
+    {% endfor %}
+
+
+
+{% endblock content %}

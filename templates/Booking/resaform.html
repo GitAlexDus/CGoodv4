@@ -1,0 +1,22 @@
+{% extends 'Booking/main.html' %}
+{% block content %}
+
+<div class="header-bar">
+    
+    <h1>Step 3 / 3, Select your time window</h1>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}"> {{request.user|title}}, Logout</a> {% else %}
+    <a href="{% url 'login' %}">{{request.user|title}}, Login</a> {% endif %}
+</div>
+
+
+<div class="card-body">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
+
+
+{% endblock content %}

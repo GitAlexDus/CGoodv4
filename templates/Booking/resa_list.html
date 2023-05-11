@@ -1,0 +1,53 @@
+{% extends 'Booking/main.html' %} {% block content %}
+
+
+<div class="header-bar">
+    <div>
+        <h1>My Bookings</h1>
+        
+    </div>
+
+
+    <div >
+        
+        <a   href="{% url 'resa-create' %}">Add a Booking &#x2b;</a>
+        
+    </div>
+
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}">{{request.user|title}}, Logout</a> {% else %}
+    <a href="{% url 'login' %}">Login</a> {% endif %}
+
+</div>
+
+
+
+
+<div id="resalist" class="resa-items-wrapper">
+    {% for resa in resas %}
+    <div class="resa-wrapper" data-position="{{resa.pk}}">
+        <div class="resa-title">
+            <div class="resa-complete-icon"></div>
+            <i><a href="{% url 'resa-update' resa.id %}"> Booking : {{resa.casier.CasObj}},  {{resa.casier.placard}}, Casier number {{resa.casier.CasNum}} <br>On {{resa.ResDate}} {{resa.ResHeure}}</a></i> 
+           
+        </div>
+        <div  class="resa-controls">
+            <a class="delete-link" href="{% url 'resa-delete' resa.id %}">&#215;</a>
+            
+        </div>
+
+        <div >
+
+        </div>
+
+    </div>
+
+    {% empty %}
+    <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>No bookings are created.</h3>
+        <h3>Create a <a style="text-decoration: none; color: #EB796F;" href="{% url 'resa-create' %}">New booking</a> ! </h3>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

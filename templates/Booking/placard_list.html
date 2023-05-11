@@ -1,0 +1,44 @@
+{% extends 'Booking/main.html' %}
+{% block content %}
+
+
+<div class="header-bar">
+    <div>
+       
+    </div>
+
+
+    <a href="{% url 'resas' %}">&#8592; Back</a>
+    <h1>Step 1 / 3, Select your Placard</h1>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}"> {{request.user|title}}, Logout</a> {% else %}
+    <a href="{% url 'login' %}">{{request.user|title}}, Login</a> {% endif %}
+
+</div>
+
+    {% for placard in placards %}
+    <div class="resa-wrapper" data-position="{{placard.pk}}">
+        <div class="resa-title">
+            <div class="resa-complete-icon"></div>
+            <i><a href="{% url 'resa-select-casier' placard.id %}">
+            Placard {{placard.PlaNom}} {{placard.PlaPhoto}} {{placard.PlaComment}}
+            </a></i> 
+           
+        </div>
+        
+        <div >
+
+        </div>
+
+    </div>
+
+    {% empty %}
+    <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>No Placard are created. Please contact support for Help</h3>
+        
+    </div>
+    {% endfor %}
+
+
+
+{% endblock content %}
